@@ -1,3 +1,6 @@
 example
 tsconfig.json
 src
+ios/build
+.idea
+.DS_Store
