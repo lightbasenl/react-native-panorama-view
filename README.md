@@ -31,12 +31,12 @@ We recommend using a minimum platform version of at least 9.0 for your applicati
   - Add `new PanoramaViewPackage()` to the list returned by the `getPackages()` method
 2. Append the following lines to `android/settings.gradle`:
   	```
-  	include ':react-native-panorama-view'
-  	project(':react-native-panorama-view').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-panorama-view/android')
+  	include ':@lightbase_react-native-panorama-view'
+  	project(':@lightbase_react-native-panorama-view').projectDir = new File(rootProject.projectDir, 	'../node_modules/@lightbase/react-native-panorama-view/android')
   	```
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
   	```
-      implementation project(':react-native-panorama-view')
+      implementation project(':@lightbase_react-native-panorama-view')
   	```
 
 ## Troubleshooting iOS
@@ -57,7 +57,7 @@ Here are some examples:
 ### Embed a panorama as a part of your screen
 
 ```tsx
-import { PanoramaView } from 'react-native-panorama-view';
+import { PanoramaView } from '@lightbase/react-native-panorama-view';
 
 const PanoramaDetails = () => (
     <View style={styles.container}>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 ### Fullscreen panorama
 
 ```tsx
-import { PanoramaView } from 'react-native-panorama-view';
+import { PanoramaView } from '@lightbase/react-native-panorama-view';
 
 const FullScreenPanorama = () => (
       <PanoramaView style={{ flex: 1 }} dimensions={{ height: Dimensions.get('window').height, width: Dimensions.get('window').width }} inputType="mono" imageUrl="https://raw.githubusercontent.com/googlevr/gvr-android-sdk/master/assets/panoramas/testRoom1_2kMono.jpg" />

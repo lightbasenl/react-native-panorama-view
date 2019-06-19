@@ -819,6 +819,9 @@
     eslint-plugin-react "^7.13.0"
     eslint-plugin-react-hooks "1.6.0"
 
+"@lightbase/react-native-panorama-view@file:..":
+  version "0.1.1"
+
 "@react-native-community/cli@^1.2.1":
   version "1.9.8"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli/-/cli-1.9.8.tgz#8488699f78b146cab2d7451951c4218671812cdc"
@@ -5487,11 +5490,6 @@ react-is@^16.8.1, react-is@^16.8.3, react-is@^16.8.4:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
-
-"react-native-panorama-view@file:..":
-  version "0.0.1"
-  dependencies:
-    typescript "^3.5.2"
 
 react-native@0.59.9:
   version "0.59.9"

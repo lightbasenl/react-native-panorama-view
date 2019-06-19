@@ -10,7 +10,7 @@
   "dependencies": {
     "react": "16.8.3",
     "react-native": "0.59.9",
-    "react-native-panorama-view": "file:../",
+    "@lightbase/react-native-panorama-view": "file:../",
     "typescript": "^3.5.2"
   },
   "devDependencies": {

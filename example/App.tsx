@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Dimensions } from "react-native";
-import { PanoramaView } from "react-native-panorama-view";
+import { PanoramaView } from "@lightbase/react-native-panorama-view";
 
 export default class App extends Component {
   render() {

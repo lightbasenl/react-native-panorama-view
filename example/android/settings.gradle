@@ -1,5 +1,5 @@
 rootProject.name = 'example'
-include ':react-native-panorama-view'
-project(':react-native-panorama-view').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-panorama-view/android')
+include ':@lightbase_react-native-panorama-view'
+project(':@lightbase_react-native-panorama-view').projectDir = new File(rootProject.projectDir, '../node_modules/@lightbase/react-native-panorama-view/android')
 
 include ':app'

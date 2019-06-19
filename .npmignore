@@ -1,6 +1,11 @@
 example
 tsconfig.json
-src
 ios/build
+android/build
+android/.gradle
 .idea
 .DS_Store
+.eslintrc
+.gitattributes
+.prettierrc.js
+scripts
