@@ -11,8 +11,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/github_account/react-native-panorama-view.git",
-    "baseUrl": "https://github.com/github_account/react-native-panorama-view"
+    "url": "git+https://github.com/lightbasenl/react-native-panorama-view.git",
+    "baseUrl": "https://github.com/lightbasenl/react-native-panorama-view"
   },
   "keywords": [
     "react-native"
