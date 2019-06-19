@@ -1,0 +1,3 @@
+{
+  "extends": ["@lightbase/eslint-config-lightbase/rn"]
+}

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "target": "es5",
+    "module": "commonjs",
+    "jsx": "react-native",
+    "lib": ["es7"],
+    "outDir": "./dist",
+    "declaration": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/__tests__/*", "example"]
+}
