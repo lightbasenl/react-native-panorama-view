@@ -6,13 +6,13 @@ React Native Panorama viewer for Android and iOS.
 
 ## Getting started
 
-`$ npm install react-native-panorama-view --save`
+`$ npm install @lightbase/react-native-panorama-view --save`
 
-`$ yarn add react-native-panorama-view`
+`$ yarn add @lightbase/react-native-panorama-view`
 
 ### Mostly automatic installation
 
-`$ react-native link react-native-panorama-view`
+`$ react-native link @lightbase/react-native-panorama-view`
 
 `$ cd ios && pod install`
 
@@ -23,7 +23,7 @@ React Native Panorama viewer for Android and iOS.
 This guide assumes you've already set-up your React Native project to use Cocoapods.
 
 1. Open up `ios/Podfile`
-2. Add `pod 'PanoramaView', :path => '../node_modules/react-native-panorama-view'` to your dependency block.
+2. Add `pod 'PanoramaView', :path => '../node_modules/@lightbase/react-native-panorama-view'` to your dependency block.
 3. Run `$ pod install`
 
 We recommend using a minimum platform version of at least 9.0 for your application to ensure that the correct
@@ -78,11 +78,11 @@ const PanoramaDetails = () => (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   viewer: {
-    height: 230,
-  },
+    height: 230
+  }
 });
 ```
 
@@ -94,7 +94,10 @@ import { PanoramaView } from "@lightbase/react-native-panorama-view";
 const FullScreenPanorama = () => (
   <PanoramaView
     style={{ flex: 1 }}
-    dimensions={{ height: Dimensions.get("window").height, width: Dimensions.get("window").width }}
+    dimensions={{
+      height: Dimensions.get("window").height,
+      width: Dimensions.get("window").width
+    }}
     inputType="mono"
     imageUrl="https://raw.githubusercontent.com/googlevr/gvr-android-sdk/master/assets/panoramas/testRoom1_2kMono.jpg"
   />
