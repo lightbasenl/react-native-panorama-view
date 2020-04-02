@@ -1,5 +1,5 @@
 {
-  "name": "@lightbase/react-native-panorama-view",
+  "name": "@warpspade/react-native-panorama-view",
   "title": "React Native Panorama View",
   "version": "0.1.3",
   "description": "A simple component for displaying panoramic images in your React Native app.",
