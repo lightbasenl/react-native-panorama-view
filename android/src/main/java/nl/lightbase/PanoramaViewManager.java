@@ -3,7 +3,7 @@ package nl.lightbase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.util.Pair;
 import android.webkit.URLUtil;
@@ -23,11 +23,10 @@ import com.google.vr.sdk.widgets.common.VrWidgetView.DisplayMode;
 import com.google.vr.sdk.widgets.pano.VrPanoramaEventListener;
 import com.google.vr.sdk.widgets.pano.VrPanoramaView;
 
-import org.apache.commons.io.IOUtils;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -205,10 +204,18 @@ public class PanoramaViewManager extends SimpleViewManager<VrPanoramaView> {
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
         }
 
+        private void copyData(InputStream in, ByteArrayOutputStream out) throws IOException {
+            byte[] buffer = new byte[8 * 1024];
+            int len;
+            while ((len = in.read(buffer)) > 0) {
+                out.write(buffer, 0, len);
+            }
+        }
+
         private byte[] getBytesFromInputStream(InputStream inputStream) throws IOException {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-            IOUtils.copy(inputStream, baos);
+            copyData(inputStream, baos);
 
             return baos.toByteArray();
         }
