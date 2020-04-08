@@ -53,6 +53,7 @@ repositories {
 dependencies {
     implementation 'com.facebook.react:react-native:+'
     // Panorama
+    implementation "androidx.annotation:annotation:1.1.0"
     implementation 'com.google.vr:sdk-base:1.180.0'
     implementation 'com.google.vr:sdk-common:1.180.0'
     implementation 'com.google.vr:sdk-commonwidget:1.180.0'
