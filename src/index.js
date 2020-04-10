@@ -1,7 +1,7 @@
 import * as React from "react";
 import { requireNativeComponent, ViewStyle, Platform } from "react-native";
 
-interface Props {
+type Props = {
   imageUrl: string;
   dimensions?: { width: number; height: number }; // Android-only
   inputType?: "mono" | "stereo"; // Android-only

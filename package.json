@@ -1,12 +1,10 @@
 {
-  "name": "@thomas_hunt/react-native-panorama-view",
+  "name": "react-native-panorama-view",
   "title": "React Native Panorama View",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "A simple component for displaying panoramic images in your React Native app.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/index.js",
   "scripts": {
-    "build": "tsc",
     "test": "echo \"No tests specified\""
   },
   "repository": {
@@ -25,17 +23,11 @@
   "licenseFilename": "LICENSE",
   "readmeFilename": "README.md",
   "peerDependencies": {
-    "react": "^16.5.0",
-    "react-native": ">=0.57.0-rc.0 <1.0.x"
+    "react": "^16.13.0",
+    "react-native": ">=0.60.0 <1.0.x"
   },
   "devDependencies": {
-    "@lightbase/eslint-config-lightbase": "^1.0.3",
-    "@types/react": "^16.8.20",
-    "@types/react-native": "^0.57.63",
-    "eslint": "^5.16.0",
-    "prettier": "^1.18.2",
-    "react": "^16.5.0",
-    "react-native": "^0.59.4",
-    "typescript": "^3.5.2"
+    "react": "^16.13.0",
+    "react-native": "^0.61.5"
   }
 }
