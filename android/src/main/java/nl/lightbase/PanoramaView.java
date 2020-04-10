@@ -95,18 +95,12 @@ public class PanoramaView extends VrPanoramaView {
     }
 
     public void setDimensions(ReadableMap dimensions) {
-        if ((imageWidth == dimensions.getInt("width")) && (imageHeight == dimensions.getInt("height"))){
-            return;
-        }
 
         imageWidth = dimensions.getInt("width");
         imageHeight = dimensions.getInt("height");
 
         Log.i(LOG_TAG, "Image dimensions: " + imageWidth + ", " + imageHeight);
 
-        if(image != null){
-            loadImageFromBitmap(image, _options);
-        }
     }
 
     public void setInputType(String inputType) {
