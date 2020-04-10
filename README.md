@@ -2,6 +2,11 @@
 
 React Native Panorama viewer for Android and iOS.
 
+Fork from https://github.com/lightbasenl/react-native-panorama-view
+Since I couldn't deal with .ts and building BS, I've removed those.
+
+Work in progress for local images
+
 ![Example](https://raw.githubusercontent.com/lightbasenl/react-native-panorama-view/master/example.gif)
 
 ## Getting started
