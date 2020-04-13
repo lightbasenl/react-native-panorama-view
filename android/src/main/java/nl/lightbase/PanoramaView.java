@@ -6,43 +6,37 @@ import android.os.AsyncTask;
 import androidx.annotation.Nullable;
 import android.util.Log;
 import android.util.Pair;
-import android.webkit.URLUtil;
+import android.net.Uri;
 
 import com.facebook.infer.annotation.Assertions;
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.common.MapBuilder;
-import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.google.vr.sdk.widgets.common.VrWidgetView.DisplayMode;
 import com.google.vr.sdk.widgets.pano.VrPanoramaEventListener;
 import com.google.vr.sdk.widgets.pano.VrPanoramaView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 
-public class PanoramaView extends VrPanoramaView {
+public class PanoramaView extends VrPanoramaView implements LifecycleEventListener {
     private static final String LOG_TAG = "PanoramaView";
+    private final static String SCHEME_FILE = "file";
 
     private VrPanoramaView.Options _options = new VrPanoramaView.Options();
     private ImageLoaderTask imageLoaderTask;
 
     private Integer imageWidth;
     private Integer imageHeight;
-    private URL imageUrl;
+    private String imageUrl;
     private Bitmap image;
     private String _inputType;
     private ThemedReactContext _context;
@@ -50,7 +44,10 @@ public class PanoramaView extends VrPanoramaView {
 
     public PanoramaView(ThemedReactContext context) {
         super(context.getCurrentActivity());
+
         _context = context;
+
+        context.addLifecycleEventListener(this);
 
         this.setEventListener(new ActivityEventListener());
         this.setDisplayMode(DisplayMode.EMBEDDED);
@@ -58,38 +55,33 @@ public class PanoramaView extends VrPanoramaView {
         this.setTransitionViewEnabled(false);
         this.setInfoButtonEnabled(false);
         this.setFullscreenButtonEnabled(false);
+
     }
 
 
 
     public void setImageSource(String value) {
-        Log.i(LOG_TAG, "Image source: " + value);
+        //Log.i(LOG_TAG, "Image source: " + value);
 
-        if (imageUrl != null && imageUrl.toString().equals(value)) {
+        if(value == null){
             return;
         }
+
+        if (imageUrl != null && imageUrl.equals(value)) {
+            return;
+        }
+
+        imageUrl = value;
 
         try {
-            imageUrl = new URL(value);
-
-        } catch (MalformedURLException e) {
-            image = null;
-            emitEvent("onImageLoadingFailed", null);
-            return;
-        }
-
-        if (imageLoaderTask != null) {
-            imageLoaderTask.cancel(true);
-        }
-
-        if (imageUrl != null && URLUtil.isValidUrl(imageUrl.toString())) {
-            try {
-                imageLoaderTask = new ImageLoaderTask();
-                imageLoaderTask.execute(Pair.create(imageUrl, _options));
-            } catch (Exception e) {
-                emitEvent("onImageLoadingFailed", null);
+            if (imageLoaderTask != null) {
+                imageLoaderTask.cancel(true);
             }
-        } else {
+
+            imageLoaderTask = new ImageLoaderTask();
+            imageLoaderTask.execute(Pair.create(imageUrl, _options));
+
+        } catch (Exception e) {
             emitEvent("onImageLoadingFailed", null);
         }
     }
@@ -99,7 +91,7 @@ public class PanoramaView extends VrPanoramaView {
         imageWidth = dimensions.getInt("width");
         imageHeight = dimensions.getInt("height");
 
-        Log.i(LOG_TAG, "Image dimensions: " + imageWidth + ", " + imageHeight);
+        //Log.i(LOG_TAG, "Image dimensions: " + imageWidth + ", " + imageHeight);
 
     }
 
@@ -129,25 +121,45 @@ public class PanoramaView extends VrPanoramaView {
         setTouchTrackingEnabled(enableTouchTracking);
     }
 
-    class ImageLoaderTask extends AsyncTask<Pair<URL, VrPanoramaView.Options>, Void, Boolean> {
-        protected Boolean doInBackground(Pair<URL, VrPanoramaView.Options>... fileInformation) {
+    class ImageLoaderTask extends AsyncTask<Pair<String, VrPanoramaView.Options>, Void, Boolean> {
 
-            final URL imageUrl = fileInformation[0].first;
+        protected Boolean doInBackground(Pair<String, VrPanoramaView.Options>... fileInformation) {
+
+            if(isCancelled()){
+                return false;
+            }
+
             VrPanoramaView.Options _options = fileInformation[0].second;
 
             InputStream istr = null;
 
             try {
-                HttpURLConnection connection = (HttpURLConnection) fileInformation[0].first.openConnection();
-                connection.connect();
 
-                istr = connection.getInputStream();
+                String value = fileInformation[0].first;
+                Uri imageUri = Uri.parse(value);
+                String scheme = imageUri.getScheme();
+
+                if(scheme == null || scheme.equalsIgnoreCase(SCHEME_FILE)){
+                    istr = new FileInputStream(new File(imageUri.getPath()));
+
+                }
+                else{
+                    URL url = new URL(value);
+
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.connect();
+
+                    istr = connection.getInputStream();
+                }
 
                 Assertions.assertCondition(istr != null);
-
                 image = decodeSampledBitmap(istr);
 
-            } catch (IOException e) {
+            } catch (Exception e) {
+                if(isCancelled()){
+                    return false;
+                }
+
                 Log.e(LOG_TAG, "Could not load file: " + e);
 
                 emitEvent("onImageLoadingFailed", null);
@@ -163,6 +175,7 @@ public class PanoramaView extends VrPanoramaView {
                 }
             }
 
+            emitEvent("onImageDownloaded", null);
             loadImageFromBitmap(image, _options);
 
             return true;
@@ -249,5 +262,36 @@ public class PanoramaView extends VrPanoramaView {
         );
     }
 
+    public void cleanUp(){
+        if (imageLoaderTask != null) {
+            imageLoaderTask.cancel(true);
+        }
 
+        this.setEventListener(null);
+        _context.removeLifecycleEventListener(this);
+
+        try{
+            this.pauseRendering();
+            this.shutdown();
+        }
+        catch(Exception e){
+
+        }
+    }
+
+    @Override
+    public void onHostResume() {
+        //Log.i(LOG_TAG, "onHostResume");
+    }
+
+    @Override
+    public void onHostPause() {
+        //Log.i(LOG_TAG, "onHostPause");
+    }
+
+    @Override
+    public void onHostDestroy() {
+        this.cleanUp();
+        //Log.i(LOG_TAG, "onHostDestroy");
+    }
 }
