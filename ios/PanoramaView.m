@@ -64,6 +64,7 @@
                                                     [self imageLoadingFailed];
                                                 } else {
                                                     NSLog(@"[PanoramaView] Loading image.");
+                                                    [self imageDownloaded];
                                                     dispatch_async([weakSelf methodQueue], ^{
                                                         if (image) {
                                                             self->_panoView.image = image;
@@ -103,6 +104,14 @@
 
     if (_onImageLoadingFailed) {
         _onImageLoadingFailed(nil);
+    }
+}
+
+- (void)imageDownloaded {
+    NSLog(@"[PanoramaView] Image downloaded.");
+
+    if (_onImageDownloaded) {
+        _onImageDownloaded(nil);
     }
 }
 

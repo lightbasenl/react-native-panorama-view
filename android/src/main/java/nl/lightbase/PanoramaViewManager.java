@@ -51,10 +51,18 @@ public class PanoramaViewManager extends SimpleViewManager<PanoramaView> {
     }
 
     @Override
+    public void onDropViewInstance(PanoramaView view) {
+        view.onHostDestroy();
+        super.onDropViewInstance(view);
+    }
+
+    @Override
     public @Nullable Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(
                 "onImageLoadingFailed",
                 MapBuilder.of("registrationName", "onImageLoadingFailed"),
+                "onImageDownloaded",
+                MapBuilder.of("registrationName", "onImageDownloaded"),
                 "onImageLoaded",
                 MapBuilder.of("registrationName", "onImageLoaded")
         );

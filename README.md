@@ -3,7 +3,7 @@
 React Native Panorama viewer for Android and iOS.
 
 Fork from https://github.com/lightbasenl/react-native-panorama-view
-Since I couldn't deal with .ts and building BS, I've removed those.
+Since I couldn't deal with .ts and building/dist issues, I've removed those.
 
 Work in progress for local images
 
@@ -12,16 +12,17 @@ Work in progress for local images
 ## Getting started
 
 `$ npm install @lightbase/react-native-panorama-view --save`
+  or `github:cristianoccazinsp/react-native-panorama-view#updates`
 
 `$ yarn add @lightbase/react-native-panorama-view`
 
-### Mostly automatic installation
-
-`$ react-native link @lightbase/react-native-panorama-view`
+### Mostly automatic installation (RN >= 0.60)
 
 `$ cd ios && pod install`
 
-### Manual installation
+### Manual installation (RN < 0.60 )
+
+`$ react-native link @lightbase/react-native-panorama-view`
 
 #### iOS (Cocoapods)
 
@@ -62,6 +63,9 @@ If you're app doesn't compile due to Swift or linker errors. Follow these steps.
 ## Usage
 
 You can size your panorama anyway you'd like using the regular `View` styles.
+
+NOTE: On android, you need to make sure the View renders at least a few pixels (not invisible / display: none).
+Otherwise, the VR viewer won't fire events. You may use `onImageDownloaded` to lazy load the VR renderer instead.
 
 Here are some examples:
 
@@ -113,9 +117,10 @@ const FullScreenPanorama = () => (
 
 | Name                 | Type                                | Description                                                                                               |
 | -------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| imageUrl             | string                              | Remote URI for fetching the panorama image.                                                               |
+| imageUrl             | string                              | Remote or local URI for fetching the panorama image.                                                               |
 | enableTouchTracking  | boolean                             | Enables dragging the panorama by touch when `true`.                                                       |
-| onImageLoadingFailed | callback                            | Fired when something goes wrong while trying to load the panorama.                                        |
+| onImageLoadingFailed | callback                            | Fired when something goes wrong while trying to load the panorama.
+| onImageDownloaded    | callback                            | Fired when the image was successfully downloaded. This will fire before onImageLoaded
 | onImageLoaded        | callback                            | Fired when the image was successfully loaded.                                                             |
 | style                | ViewStyle                           | Allows to style the `PanoramaView` like a regular `View`.                                                 |
 | inputType            | 'mono' or 'stereo'                  | Specify the type of panorama source image. **Android only**                                               |
