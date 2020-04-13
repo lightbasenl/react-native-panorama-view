@@ -11,10 +11,9 @@ Work in progress for local images
 
 ## Getting started
 
-`$ npm install @lightbase/react-native-panorama-view --save`
-  or `github:cristianoccazinsp/react-native-panorama-view#updates`
+`$ npm install react-native-panorama-view --save`
 
-`$ yarn add @lightbase/react-native-panorama-view`
+`$ yarn add react-native-panorama-view`
 
 ### Mostly automatic installation (RN >= 0.60)
 
@@ -22,14 +21,14 @@ Work in progress for local images
 
 ### Manual installation (RN < 0.60 )
 
-`$ react-native link @lightbase/react-native-panorama-view`
+`$ react-native link react-native-panorama-view`
 
 #### iOS (Cocoapods)
 
 This guide assumes you've already set-up your React Native project to use Cocoapods.
 
 1. Open up `ios/Podfile`
-2. Add `pod 'PanoramaView', :path => '../node_modules/@lightbase/react-native-panorama-view'` to your dependency block.
+2. Add `pod 'PanoramaView', :path => '../node_modules/react-native-panorama-view'` to your dependency block.
 3. Run `$ pod install`
 
 We recommend using a minimum platform version of at least 9.0 for your application to ensure that the correct
@@ -44,12 +43,12 @@ dependency versions are used. To do this add `platform :ios, '9.0'` to the top o
 
 2. Append the following lines to `android/settings.gradle`:
    ```
-   include ':@lightbase_react-native-panorama-view'
-   project(':@lightbase_react-native-panorama-view').projectDir = new File(rootProject.projectDir, 	'../node_modules/@lightbase/react-native-panorama-view/android')
+   include ':react-native-panorama-view'
+   project(':react-native-panorama-view').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-panorama-view/android')
    ```
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
    ```
-     implementation project(':@lightbase_react-native-panorama-view')
+     implementation project(':react-native-panorama-view')
    ```
 
 ## Troubleshooting iOS
@@ -73,7 +72,7 @@ Here are some examples:
 ### Embed a panorama as a part of your screen
 
 ```tsx
-import { PanoramaView } from "@lightbase/react-native-panorama-view";
+import { PanoramaView } from "react-native-panorama-view";
 
 const PanoramaDetails = () => (
   <View style={styles.container}>
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
 ### Fullscreen panorama
 
 ```tsx
-import { PanoramaView } from "@lightbase/react-native-panorama-view";
+import { PanoramaView } from "react-native-panorama-view";
 
 const FullScreenPanorama = () => (
   <PanoramaView
