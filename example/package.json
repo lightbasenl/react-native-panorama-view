@@ -10,7 +10,7 @@
   "dependencies": {
     "react": "16.13.1",
     "react-native": "0.61.5",
-    "react-native-panorama-view": "github:cristianoccazinsp/react-native-panorama-view#updates",
+    "react-native-panorama-view": "file:../",
     "typescript": "^3.5.2"
   },
   "devDependencies": {
