@@ -167,7 +167,9 @@ public class PanoramaView extends VrPanoramaView implements LifecycleEventListen
 
             } finally {
                 try {
-                    istr.close();
+                    if(istr != null){
+                        istr.close();
+                    }
                 } catch (IOException e) {
                     Log.e(LOG_TAG, "Could not close input stream: " + e);
 
