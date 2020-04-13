@@ -55,26 +55,28 @@
 
     __weak PanoramaView *weakSelf = self;
 
-    if (imageUrl.length && _bridge.imageLoader) {
+
+    if (imageUrl.length && _bridge) {
         NSLog(@"[PanoramaView] Getting ready to load.");
 
-        [_bridge.imageLoader loadImageWithURLRequest: [RCTConvert NSURLRequest: imageUrl]
-                                            callback:^(NSError *error, UIImage *image) {
-                                                if (image == nil && error) {
-                                                    [self imageLoadingFailed];
-                                                } else {
-                                                    NSLog(@"[PanoramaView] Loading image.");
-                                                    [self imageDownloaded];
-                                                    dispatch_async([weakSelf methodQueue], ^{
-                                                        if (image) {
-                                                            self->_panoView.image = image;
-                                                            [self imageLoaded];
-                                                        } else {
-                                                            [self imageLoadingFailed];
-                                                        }
-                                                    });
-                                                }
-                                            }];
+        [[_bridge moduleForName:@"ImageLoader" lazilyLoadIfNecessary:YES] loadImageWithURLRequest:[RCTConvert NSURLRequest:imageUrl] callback:^(NSError *error, UIImage *image) {
+        if (error) {
+            [self imageLoadingFailed];
+        }
+        else{
+            NSLog(@"[PanoramaView] Loading image.");
+            [self imageDownloaded];
+            dispatch_async([weakSelf methodQueue], ^{
+                if (image) {
+                    self->_panoView.image = image;
+                    [self imageLoaded];
+                } else {
+                    [self imageLoadingFailed];
+                }
+            });
+        }
+    }];
+
     } else {
         if (_bridge == nil) {
             NSLog(@"[PanoramaView] Bridge not available.");
@@ -113,7 +115,7 @@
     if (_onImageDownloaded) {
         _onImageDownloaded(nil);
     }
-}
+} 
 
 - (void)imageLoaded {
     NSLog(@"[PanoramaView] Image loaded.");
