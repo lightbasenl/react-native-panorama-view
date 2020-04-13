@@ -59,10 +59,6 @@ export const PanoramaView: React.FC<Props> = ({
   );
 };
 
-PanoramaView.defaultProps = {
-  enableTouchTracking: true
-}
-
 const NativePanoramaView = requireNativeComponent("PanoramaView", PanoramaView, {
   nativeOnly: {
     onImageDownloaded: true,

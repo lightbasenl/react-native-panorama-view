@@ -59,6 +59,7 @@ If you're app doesn't compile due to Swift or linker errors. Follow these steps.
 1. Make sure you have defined a `SWIFT_VERSION` in your project.
 2. Add `/usr/lib/swift` as the first argument to your **Runpath Search Paths**.
 3. Add `"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)"` to your **Library Search Paths**.
+4. Add a dummy swift file on your project root and accept adding a bridging header
 
 ## Usage
 
