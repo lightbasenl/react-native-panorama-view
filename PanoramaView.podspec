@@ -18,12 +18,12 @@ Pod::Spec.new do |s|
 
   s.source_files = "ios/**/*.{h,m}"
   s.requires_arc = true
-  s.swift_version = '4.2'
+  s.swift_version = '5.2'
 
   s.dependency "React"
 
   s.subspec 'Core' do |ss|
-    ss.dependency     'CTPanoramaView', "1.2"
+    ss.dependency     'CTPanoramaView', "1.3"
   end
 end
 
