@@ -17,39 +17,9 @@ Work in progress for local images
 
 ### Mostly automatic installation (RN >= 0.60)
 
+Add the following to your project's Podfile (TODO: Remove this once CTPanoramaView is updated)
+`pod 'CTPanoramaView', :git => 'https://github.com/cristianoccazinsp/CTPanoramaView.git', :branch => 'control-both'`
 `$ cd ios && pod install`
-
-### Manual installation (RN < 0.60 )
-
-`$ react-native link react-native-panorama-view`
-
-#### iOS (Cocoapods)
-
-This guide assumes you've already set-up your React Native project to use Cocoapods.
-
-1. Open up `ios/Podfile`
-2. Add `pod 'PanoramaView', :path => '../node_modules/react-native-panorama-view'` to your dependency block.
-3. Run `$ pod install`
-
-We recommend using a minimum platform version of at least 9.0 for your application to ensure that the correct
-dependency versions are used. To do this add `platform :ios, '9.0'` to the top of your `ios/Podfile`.
-
-#### Android
-
-1. Open up `android/app/src/main/java/[...]/MainApplication.java`
-
-- Add `import nl.lightbase.PanoramaViewPackage;` to the imports at the top of the file
-- Add `new PanoramaViewPackage()` to the list returned by the `getPackages()` method
-
-2. Append the following lines to `android/settings.gradle`:
-   ```
-   include ':react-native-panorama-view'
-   project(':react-native-panorama-view').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-panorama-view/android')
-   ```
-3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
-   ```
-     implementation project(':react-native-panorama-view')
-   ```
 
 ## Troubleshooting iOS
 
