@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.dependency "React"
 
   s.subspec 'Core' do |ss|
-    ss.dependency     'CTPanoramaView', :git => 'https://github.com/cristianoccazinsp/CTPanoramaView', :branch => 'control-both'
+    ss.dependency     'CTPanoramaView', "1.4"
   end
 end
 
