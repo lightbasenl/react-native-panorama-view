@@ -65,7 +65,7 @@
         }
         else{
             NSLog(@"[PanoramaView] Loading image.");
-            
+
             dispatch_async([weakSelf methodQueue], ^{
                 [self imageDownloaded];
             });
@@ -98,7 +98,8 @@
 -(void)setEnableTouchTracking:(BOOL)enableTouchTracking
 {
     if (enableTouchTracking) {
-        _panoView.controlMethod = CTPanoramaControlMethodTouch;
+        //_panoView.controlMethod = CTPanoramaControlMethodTouch;
+        _panoView.controlMethod = CTPanoramaControlMethodBoth;
     } else {
         _panoView.controlMethod = CTPanoramaControlMethodMotion;
     }
