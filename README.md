@@ -20,6 +20,7 @@ Work in progress for local images
 Add the following to your project's Podfile (TODO: Remove this once CTPanoramaView is updated)
 `pod 'CTPanoramaView', :git => 'https://github.com/cristianoccazinsp/CTPanoramaView.git', :branch => 'control-both'`
 `$ cd ios && pod install`
+Note: You may need to delete your Podfile.lock file before running pod install
 
 ## Troubleshooting iOS
 
