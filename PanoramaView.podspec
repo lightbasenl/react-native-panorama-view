@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.dependency "React"
 
   s.subspec 'Core' do |ss|
-    ss.dependency     'CTPanoramaView', "1.4"
+    ss.dependency     'CTPanoramaView', "1.5"
   end
 end
 
