@@ -53,6 +53,7 @@ repositories {
 dependencies {
     implementation 'com.facebook.react:react-native:+'
     // Panorama
+    implementation "androidx.annotation:annotation:1.1.0"
     implementation 'com.google.vr:sdk-base:1.180.0'
     implementation 'com.google.vr:sdk-common:1.180.0'
     implementation 'com.google.vr:sdk-commonwidget:1.180.0'
@@ -89,7 +90,8 @@ def configureReactNativePom(def pom) {
 }
 
 afterEvaluate { project ->
-
+    // some Gradle build hooks ref:
+    // https://www.oreilly.com/library/view/gradle-beyond-the/9781449373801/ch03.html
     task androidJavadoc(type: Javadoc) {
         source = android.sourceSets.main.java.srcDirs
         classpath += files(android.bootClasspath)
@@ -110,8 +112,10 @@ afterEvaluate { project ->
 
     android.libraryVariants.all { variant ->
         def name = variant.name.capitalize()
-        task "jar${name}"(type: Jar, dependsOn: variant.javaCompile) {
-            from variant.javaCompile.destinationDir
+        def javaCompileTask = variant.javaCompileProvider.get()
+
+        task "jar${name}"(type: Jar, dependsOn: javaCompileTask) {
+            from javaCompileTask.destinationDir
         }
     }
 
@@ -125,7 +129,6 @@ afterEvaluate { project ->
         repositories.mavenDeployer {
             // Deploy to react-native-event-bridge/maven, ready to publish to npm
             repository url: "file://${projectDir}/../android/maven"
-
             configureReactNativePom pom
         }
     }

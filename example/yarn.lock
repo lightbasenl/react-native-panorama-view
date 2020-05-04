@@ -819,7 +819,7 @@
     eslint-plugin-react "^7.13.0"
     eslint-plugin-react-hooks "1.6.0"
 
-"@lightbase/react-native-panorama-view@file:..":
+"react-native-panorama-view@file:..":
   version "0.1.2"
 
 "@react-native-community/cli@^1.2.1":

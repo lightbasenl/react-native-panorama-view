@@ -20,6 +20,7 @@
 @property (nonatomic, copy) NSString* imageUrl;
 @property (nonatomic, assign) BOOL _enableTouchTracking;
 @property (nonatomic, copy) RCTDirectEventBlock onImageLoadingFailed;
+@property (nonatomic, copy) RCTDirectEventBlock onImageDownloaded;
 @property (nonatomic, copy) RCTDirectEventBlock onImageLoaded;
 
 @end

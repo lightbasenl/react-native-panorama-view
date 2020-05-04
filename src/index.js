@@ -1,18 +1,20 @@
 import * as React from "react";
 import { requireNativeComponent, ViewStyle, Platform } from "react-native";
 
-interface Props {
+type Props = {
   imageUrl: string;
   dimensions?: { width: number; height: number }; // Android-only
   inputType?: "mono" | "stereo"; // Android-only
   enableTouchTracking?: boolean;
   onImageLoadingFailed?: () => void;
+  onImageDownloaded?: () => void;
   onImageLoaded?: () => void;
   style: ViewStyle;
 }
 
 export const PanoramaView: React.FC<Props> = ({
   onImageLoadingFailed,
+  onImageDownloaded,
   onImageLoaded,
   dimensions,
   inputType,
@@ -30,6 +32,12 @@ export const PanoramaView: React.FC<Props> = ({
     }
   };
 
+  const _onImageDownloaded = () => {
+    if (onImageDownloaded) {
+      onImageDownloaded();
+    }
+  };
+
   if (Platform.OS === "android" && !dimensions) {
     console.warn('The "dimensions" property is required for PanoramaView on Android devices.');
     return null;
@@ -44,10 +52,17 @@ export const PanoramaView: React.FC<Props> = ({
       {...props}
       dimensions={dimensions}
       inputType={inputType}
+      onImageDownloaded={_onImageDownloaded}
       onImageLoaded={_onImageLoaded}
       onImageLoadingFailed={_onImageLoadingFailed}
     />
   );
 };
 
-const NativePanoramaView = requireNativeComponent("PanoramaView");
+const NativePanoramaView = requireNativeComponent("PanoramaView", PanoramaView, {
+  nativeOnly: {
+    onImageDownloaded: true,
+    onImageLoaded: true,
+    onImageLoadingFailed: true
+  }
+});

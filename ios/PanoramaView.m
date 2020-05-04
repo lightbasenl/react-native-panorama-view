@@ -12,6 +12,8 @@
     UIImage *_image;
     CTPanoramaView *_panoView;
     __weak RCTBridge *_bridge;
+
+    RCTImageLoaderCancellationBlock _cancel;
 }
 
 - (dispatch_queue_t)methodQueue
@@ -23,6 +25,7 @@
 {
     if ((self = [super init])) {
         _bridge = bridge;
+        _cancel = nil;
     }
 
     return self;
@@ -55,25 +58,40 @@
 
     __weak PanoramaView *weakSelf = self;
 
-    if (imageUrl.length && _bridge.imageLoader) {
+    if (_cancel != nil) {
+        _cancel();
+        _cancel = nil;
+    }
+
+    if (imageUrl.length && _bridge) {
         NSLog(@"[PanoramaView] Getting ready to load.");
 
-        [_bridge.imageLoader loadImageWithURLRequest: [RCTConvert NSURLRequest: imageUrl]
-                                            callback:^(NSError *error, UIImage *image) {
-                                                if (image == nil && error) {
-                                                    [self imageLoadingFailed];
-                                                } else {
-                                                    NSLog(@"[PanoramaView] Loading image.");
-                                                    dispatch_async([weakSelf methodQueue], ^{
-                                                        if (image) {
-                                                            self->_panoView.image = image;
-                                                            [self imageLoaded];
-                                                        } else {
-                                                            [self imageLoadingFailed];
-                                                        }
-                                                    });
-                                                }
-                                            }];
+        _cancel = [[_bridge moduleForName:@"ImageLoader" lazilyLoadIfNecessary:YES] loadImageWithURLRequest:[RCTConvert NSURLRequest:imageUrl] callback:^(NSError *error, UIImage *image) {
+
+            if (error) {
+                NSLog(@"[PanoramaView] Loading image error: %@.", error);
+                if(self -> _cancel != nil){
+                    [self imageLoadingFailed];
+                }
+            }
+            else{
+                NSLog(@"[PanoramaView] Image downloaded.");
+
+                dispatch_async([weakSelf methodQueue], ^{
+                    [self imageDownloaded];
+                });
+                dispatch_async([weakSelf methodQueue], ^{
+                    if (image) {
+                        self->_panoView.image = image;
+                        [self imageLoaded];
+                    } else {
+                        [self imageLoadingFailed];
+                    }
+                });
+            }
+            self->_cancel = nil;
+        }];
+
     } else {
         if (_bridge == nil) {
             NSLog(@"[PanoramaView] Bridge not available.");
@@ -85,6 +103,7 @@
             NSLog(@"[PanoramaView] Bridge image loader not available.");
         }
         NSLog(@"[PanoramaView] Image argument not sufficient or bridge image loader not available.");
+
         [self imageLoadingFailed];
     }
 }
@@ -92,25 +111,51 @@
 -(void)setEnableTouchTracking:(BOOL)enableTouchTracking
 {
     if (enableTouchTracking) {
-        _panoView.controlMethod = CTPanoramaControlMethodTouch;
+        //_panoView.controlMethod = CTPanoramaControlMethodTouch;
+        _panoView.controlMethod = CTPanoramaControlMethodBoth;
+    } else {
+        _panoView.controlMethod = CTPanoramaControlMethodMotion;
     }
 }
 
 - (void)imageLoadingFailed {
-    NSLog(@"[PanoramaView] Could not fetch image.");
-
     if (_onImageLoadingFailed) {
         _onImageLoadingFailed(nil);
     }
 }
 
-- (void)imageLoaded {
-    NSLog(@"[PanoramaView] Image loaded.");
+- (void)imageDownloaded {
+    if (_onImageDownloaded) {
+        _onImageDownloaded(nil);
+    }
+}
 
+- (void)imageLoaded {
     if (_onImageLoaded) {
         _onImageLoaded(nil);
     }
 }
 
+- (void)dealloc
+{
+    if(_cancel != nil){
+        _cancel();
+        _cancel = nil;
+    }
+}
+
+- (void)willMoveToSuperview:(nullable UIView *)newSuperview;
+{
+    // cleanup on deallocate
+    // cancel any request in progress
+    if(newSuperview == nil){
+        if(_cancel != nil){
+            _cancel();
+            _cancel = nil;
+       }
+    }
+
+    [super willMoveToSuperview:newSuperview];
+}
 
 @end

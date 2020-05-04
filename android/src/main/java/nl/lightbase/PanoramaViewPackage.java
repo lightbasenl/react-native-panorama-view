@@ -10,7 +10,9 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 import com.facebook.react.bridge.JavaScriptModule;
 
+
 public class PanoramaViewPackage implements ReactPackage {
+
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         return Collections.emptyList();
@@ -18,6 +20,8 @@ public class PanoramaViewPackage implements ReactPackage {
 
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-        return Arrays.<ViewManager>asList(new PanoramaViewManager(reactContext));
-    }
+        return Arrays.<ViewManager>asList(
+            new PanoramaViewManager(reactContext)
+        );
+  }
 }
