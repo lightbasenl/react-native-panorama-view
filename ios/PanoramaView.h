@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import <React/RCTView.h>
 
-@import CTPanoramaView;
+@import Lightbase_CTPanoramaView;
 
 @class RCTBridge;
 

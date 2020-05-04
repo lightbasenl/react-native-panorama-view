@@ -6,9 +6,10 @@
     "target": "es5",
     "module": "commonjs",
     "jsx": "react-native",
-    "lib": ["es7"],
+    "lib": ["esnext", "dom"],
     "outDir": "./dist",
-    "declaration": true
+    "declaration": true,
+    "skipLibCheck": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/__tests__/*", "example"]
