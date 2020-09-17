@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.swift_version = '5.2'
 
-  s.dependency "React"
+  s.dependency "React-Core"
 
   s.subspec 'Core' do |ss|
     ss.dependency     'CTPanoramaView', "1.5"
