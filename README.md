@@ -14,9 +14,7 @@ Fork from https://github.com/lightbasenl/react-native-panorama-view
 
 ### Mostly automatic installation (RN >= 0.60)
 
-Add the following to your project's Podfile (TODO: Remove this once CTPanoramaView is updated)
-`pod 'CTPanoramaView', :git => 'https://github.com/cristianoccazinsp/CTPanoramaView.git', :branch => 'control-both-rebased'`
-`$ cd ios && pod install`
+Run cd ios && pod install
 Note: You may need to delete your Podfile.lock file before running pod install
 
 ## Troubleshooting iOS

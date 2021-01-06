@@ -7,8 +7,8 @@
 
 #import <UIKit/UIKit.h>
 #import <React/RCTView.h>
+#import "PanoramaView-Swift.h"
 
-@import CTPanoramaView;
 
 @class RCTBridge;
 
