@@ -7,7 +7,14 @@
 
 #import <UIKit/UIKit.h>
 #import <React/RCTView.h>
+
+#if __has_include("PanoramaView-Swift.h")
 #import "PanoramaView-Swift.h"
+#endif
+
+#if __has_include("react_native_panorama_view-Swift.h")
+#import "react_native_panorama_view-Swift.h"
+#endif
 
 
 @class RCTBridge;
