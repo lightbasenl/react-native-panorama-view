@@ -13,17 +13,13 @@ Pod::Spec.new do |s|
   s.license      = "MIT"
   # s.license    = { :type => "MIT", :file => "FILE_LICENSE" }
   s.author       = { "author" => "author@domain.cn" }
-  s.platform     = :ios, "9.0"
+  s.platform     = :ios, "10.0"
   s.source       = { :git => "https://github.com/lightbase/react-native-panorama-view.git", :tag => "#{s.version}" }
 
-  s.source_files = "ios/**/*.{h,m}"
+  s.source_files = "ios/**/*.{h,m,swift}"
   s.requires_arc = true
-  s.swift_version = '5.2'
-
-  s.dependency "React-Core"
-
-  s.subspec 'Core' do |ss|
-    ss.dependency     'CTPanoramaView', "1.5"
-  end
+  s.swift_version = '5.3'
+  s.frameworks = 'UIKit'
+  s.dependency "React"
 end
 
