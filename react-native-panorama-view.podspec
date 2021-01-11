@@ -13,7 +13,6 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/lightbase/react-native-panorama-view.git", :tag => "#{s.version}" }
   s.source_files = "ios/**/*.{h,m,swift}"
-  s.public_header_files = 'ios/**/*.h'
 
   s.swift_version = '5.3'
 
