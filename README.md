@@ -4,7 +4,7 @@
 
 React Native Panorama viewer for Android and iOS.
 
-![Demo](https://raw.githubusercontent.com/lightbasenl/react-native-panorama-view/next/demo.gif)
+![Demo](https://raw.githubusercontent.com/lightbasenl/react-native-panorama-view/master/demo.gif)
 
 ## Mostly automatic installation (RN >= 0.60)
 
