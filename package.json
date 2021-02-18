@@ -1,16 +1,18 @@
 {
-  "name": "react-native-panorama-view",
+  "name": "@lightbase/react-native-panorama-view",
   "title": "React Native Panorama View",
-  "version": "0.3.4",
+  "version": "1.0.0",
   "description": "A simple component for displaying panoramic images in your React Native app.",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"No tests specified\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cristianoccazinsp/react-native-panorama-view.git",
-    "baseUrl": "https://github.com/cristianoccazinsp/react-native-panorama-view"
+    "url": "git+https://github.com/lightbasenl/react-native-panorama-view.git",
+    "baseUrl": "https://github.com/lightbasenl/react-native-panorama-view"
   },
   "keywords": [
     "react-native"
@@ -18,9 +20,18 @@
   "author": {
     "name": "Rody Molenaar",
     "email": "rody@lightbase.nl",
-    "url": "https://github.com/lightbase"
+    "url": "https://github.com/lightbasenl"
   },
-  "homepage": "https://github.com/cristianoccazinsp/react-native-panorama-view",
+  "contributors": [
+    {
+      "name": "Thomas Hunt",
+      "email": "thomas.hunt@candide.eu"
+    },
+    {
+      "name": "Cristiano Coelho",
+      "email": "cristianocca@hotmail.com"
+    }
+  ],
   "license": "MIT",
   "licenseFilename": "LICENSE",
   "readmeFilename": "README.md",
@@ -29,7 +40,13 @@
     "react-native": ">=0.60.0 <1.0.x"
   },
   "devDependencies": {
-    "react": "^16.13.0",
-    "react-native": "^0.61.5"
+    "@lightbase/eslint-config-lightbase": "^2.14.0",
+    "@types/react": "^17.0.2",
+    "@types/react-native": "^0.63.50",
+    "eslint": "^7.20.0",
+    "prettier": "^2.2.1",
+    "react": "^17.0.1",
+    "react-native": "^0.63.4",
+    "typescript": "^4.1.5"
   }
 }
