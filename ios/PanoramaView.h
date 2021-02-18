@@ -8,7 +8,12 @@
 #import <UIKit/UIKit.h>
 #import <React/RCTView.h>
 
-@import CTPanoramaView;
+#if __has_include("PanoramaView-Swift.h")
+#import "PanoramaView-Swift.h"
+#elif __has_include("react_native_panorama_view-Swift.h")
+#import "react_native_panorama_view-Swift.h"
+#endif
+
 
 @class RCTBridge;
 
@@ -16,10 +21,8 @@
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
-@property (nonatomic, copy) UIImage* image;
-@property (nonatomic, copy) NSString* imageUrl;
-@property (nonatomic, assign) BOOL _enableTouchTracking;
 @property (nonatomic, copy) RCTDirectEventBlock onImageLoadingFailed;
+@property (nonatomic, copy) RCTDirectEventBlock onImageDownloaded;
 @property (nonatomic, copy) RCTDirectEventBlock onImageLoaded;
 
 @end

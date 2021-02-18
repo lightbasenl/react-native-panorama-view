@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E003C2B25A63C1100B87718 /* CTPieSliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E003C2A25A63C1100B87718 /* CTPieSliceView.swift */; };
+		4E1FD3BC25A61DC400F8318D /* CTPanoramaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1FD3BA25A61DC300F8318D /* CTPanoramaView.swift */; };
 		6B02B4FA22B8C1E3006A6FDD /* PanoramaViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B02B4F922B8C1E3006A6FDD /* PanoramaViewManager.m */; };
 		B3E7B58A1CC2AC0600A0062D /* PanoramaView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* PanoramaView.m */; };
 /* End PBXBuildFile section */
@@ -25,6 +27,9 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libPanoramaView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPanoramaView.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E003C2A25A63C1100B87718 /* CTPieSliceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTPieSliceView.swift; sourceTree = "<group>"; };
+		4E1FD3B925A61DC300F8318D /* PanoramaView-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PanoramaView-Bridging-Header.h"; sourceTree = "<group>"; };
+		4E1FD3BA25A61DC300F8318D /* CTPanoramaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTPanoramaView.swift; sourceTree = "<group>"; };
 		6B02B4F822B8C1DC006A6FDD /* PanoramaViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanoramaViewManager.h; sourceTree = "<group>"; };
 		6B02B4F922B8C1E3006A6FDD /* PanoramaViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanoramaViewManager.m; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* PanoramaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanoramaView.h; sourceTree = "<group>"; };
@@ -55,9 +60,12 @@
 			children = (
 				B3E7B5881CC2AC0600A0062D /* PanoramaView.h */,
 				B3E7B5891CC2AC0600A0062D /* PanoramaView.m */,
+				4E003C2A25A63C1100B87718 /* CTPieSliceView.swift */,
 				6B02B4F822B8C1DC006A6FDD /* PanoramaViewManager.h */,
+				4E1FD3BA25A61DC300F8318D /* CTPanoramaView.swift */,
 				6B02B4F922B8C1E3006A6FDD /* PanoramaViewManager.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
+				4E1FD3B925A61DC300F8318D /* PanoramaView-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,6 +100,7 @@
 				TargetAttributes = {
 					58B511DA1A9E6C8500147676 = {
 						CreatedOnToolsVersion = 6.1.1;
+						LastSwiftMigration = 1220;
 					};
 				};
 			};
@@ -120,6 +129,8 @@
 			files = (
 				B3E7B58A1CC2AC0600A0062D /* PanoramaView.m in Sources */,
 				6B02B4FA22B8C1E3006A6FDD /* PanoramaViewManager.m in Sources */,
+				4E1FD3BC25A61DC400F8318D /* CTPanoramaView.swift in Sources */,
+				4E003C2B25A63C1100B87718 /* CTPieSliceView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +163,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -202,6 +214,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -222,32 +235,43 @@
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = PanoramaView;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PanoramaView-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		58B511F11A9E6C8500147676 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = PanoramaView;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PanoramaView-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

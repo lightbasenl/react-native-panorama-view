@@ -1,5 +1,4 @@
 rootProject.name = 'example'
-include ':@lightbase_react-native-panorama-view'
-project(':@lightbase_react-native-panorama-view').projectDir = new File(rootProject.projectDir, '../node_modules/@lightbase/react-native-panorama-view/android')
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 
 include ':app'
