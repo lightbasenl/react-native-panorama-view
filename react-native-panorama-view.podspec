@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.authors      = package["author"]
   s.platform     = :ios, "10.0"
 
-  s.source       = { :git => "https://github.com/lightbase/react-native-panorama-view.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/lightbasenl/react-native-panorama-view.git", :tag => "#{s.version}" }
   s.source_files = "ios/**/*.{h,m,swift}"
 
   s.swift_version = '5.3'

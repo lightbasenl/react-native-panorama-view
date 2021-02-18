@@ -1,1 +1,6 @@
-module.exports = require("@lightbase/eslint-config-lightbase/prettierrc");
+module.exports = {
+  bracketSpacing: false,
+  jsxBracketSameLine: true,
+  singleQuote: true,
+  trailingComma: 'all',
+};
