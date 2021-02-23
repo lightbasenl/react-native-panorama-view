@@ -82,7 +82,7 @@ public class PanoramaView extends VrPanoramaView implements LifecycleEventListen
             imageLoaderTask.execute(Pair.create(imageUrl, _options));
 
         } catch (Exception e) {
-            emitEvent("onImageLoadingFailed", null);
+            emitImageLoadingFailed(e.toString());
         }
     }
 
@@ -162,7 +162,7 @@ public class PanoramaView extends VrPanoramaView implements LifecycleEventListen
 
                 Log.e(LOG_TAG, "Could not load file: " + e);
 
-                emitEvent("onImageLoadingFailed", null);
+                emitImageLoadingFailed("Failed to load source file.");
                 return false;
 
             } finally {
@@ -172,8 +172,6 @@ public class PanoramaView extends VrPanoramaView implements LifecycleEventListen
                     }
                 } catch (IOException e) {
                     Log.e(LOG_TAG, "Could not close input stream: " + e);
-
-                    emitEvent("onImageLoadingFailed", null);
                 }
             }
 
@@ -247,9 +245,14 @@ public class PanoramaView extends VrPanoramaView implements LifecycleEventListen
         @Override
         public void onLoadError(String errorMessage) {
             Log.e(LOG_TAG, "Error loading panorama: " + errorMessage);
-
-            emitEvent("onImageLoadingFailed", null);
+            emitImageLoadingFailed(errorMessage);
         }
+    }
+
+    private void emitImageLoadingFailed(String error) {
+        WritableMap params = Arguments.createMap();
+        params.putString("error", error);
+        emitEvent("onImageLoadingFailed", params);
     }
 
     private void emitEvent(String name, @Nullable WritableMap event) {
