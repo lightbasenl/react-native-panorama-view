@@ -20,7 +20,7 @@ export const PanoramaView: React.FC<PanoramaViewProps> = ({
   inputType,
   ...props
 }) => {
-  const _onImageLoadingFailed = (evt) => {
+  const _onImageLoadingFailed = (evt: any) => {
     if (onImageLoadingFailed) {
       onImageLoadingFailed(evt.nativeEvent.error);
     }
