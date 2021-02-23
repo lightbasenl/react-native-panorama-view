@@ -5,20 +5,10 @@
 //  Copyright © 2019 Lightbase B.V. All rights reserved.
 //
 
-#import "PanoramaViewManager.h"
-#import "PanoramaView.h"
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "React/RCTViewManager.h"
 
-@implementation PanoramaViewManager
-
-RCT_EXPORT_MODULE();
-
-@synthesize bridge = _bridge;
-
-- (UIView *)view
-{
-    return [[PanoramaView alloc] initWithBridge:self.bridge];
-}
+@interface RCT_EXTERN_MODULE(PanoramaViewManager, RCTViewManager)
 
 RCT_EXPORT_VIEW_PROPERTY(enableTouchTracking, BOOL);
 RCT_EXPORT_VIEW_PROPERTY(onImageLoadingFailed, RCTDirectEventBlock);

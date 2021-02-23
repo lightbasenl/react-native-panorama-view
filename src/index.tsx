@@ -6,7 +6,7 @@ export type PanoramaViewProps = {
   dimensions?: { width: number; height: number }; // Android-only
   inputType?: "mono" | "stereo"; // Android-only
   enableTouchTracking?: boolean;
-  onImageLoadingFailed?: () => void;
+  onImageLoadingFailed?: (error: string) => void;
   onImageDownloaded?: () => void;
   onImageLoaded?: () => void;
   style: ViewStyle;
@@ -20,9 +20,9 @@ export const PanoramaView: React.FC<PanoramaViewProps> = ({
   inputType,
   ...props
 }) => {
-  const _onImageLoadingFailed = () => {
+  const _onImageLoadingFailed = (evt) => {
     if (onImageLoadingFailed) {
-      onImageLoadingFailed();
+      onImageLoadingFailed(evt.nativeEvent.error);
     }
   };
 

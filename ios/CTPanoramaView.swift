@@ -11,6 +11,7 @@ import SceneKit
 import CoreMotion
 import ImageIO
 
+
 @objc public protocol CTPanoramaCompass {
     func updateUI(rotationAngle: CGFloat, fieldOfViewAngle: CGFloat)
 }
