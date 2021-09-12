@@ -1,7 +1,7 @@
 {
   "name": "@lightbase/react-native-panorama-view",
   "title": "React Native Panorama View",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple component for displaying panoramic images in your React Native app.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
