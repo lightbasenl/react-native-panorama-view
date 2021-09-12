@@ -12,7 +12,7 @@
   "dependencies": {
     "@lightbase/react-native-panorama-view": "file:../",
     "react": "16.11.0",
-    "react-native": "0.62.2"
+    "react-native": "0.62.3"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
