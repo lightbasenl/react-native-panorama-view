@@ -13,6 +13,16 @@ React Native Panorama viewer for Android and iOS.
 
 `$ cd ios && pod install`
 
+If you're using RN >= 0.65.0 and you're obtaining errors like "Could not find com.google.vr:..." while compiling, you need to add back `jcenter()` in your `android/build.gradle` repositories:
+```
+allprojects {
+    repositories {
+        // ...
+        jcenter() // <- ADD THIS!
+    }
+}
+```
+
 ## Troubleshooting iOS
 
 If you're app doesn't compile due to Swift or linker errors. Follow these steps.
