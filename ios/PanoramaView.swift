@@ -21,6 +21,28 @@ import Foundation
             }
         }
     }
+    
+    private static var metalSize: Int = {
+        var maxTexSize = 8192
+        if let device = MTLCreateSystemDefaultDevice() {
+            if #available(iOS 11.0, *) {
+                if device.supportsFeatureSet(.iOS_GPUFamily4_v1) || device.supportsFeatureSet(.iOS_GPUFamily3_v1) {
+                    maxTexSize = 16384
+                } else if device.supportsFeatureSet(.iOS_GPUFamily2_v2) || device.supportsFeatureSet(.iOS_GPUFamily1_v2) {
+                    maxTexSize = 8192
+                } else {
+                    maxTexSize = 4096
+                }
+            } else {
+                if device.supportsFeatureSet(.iOS_GPUFamily2_v2) || device.supportsFeatureSet(.iOS_GPUFamily1_v2) {
+                    maxTexSize = 8192
+                } else {
+                    maxTexSize = 4096
+                }
+            }
+        }
+        return maxTexSize
+    }()
 
     @objc public var imageUrl: String? = nil {
         didSet {
@@ -57,8 +79,43 @@ import Foundation
                         else{
                             self.onImageDownloaded?(nil)
 
-                            if(image != nil){
-                                self.panoramaView?.image = image
+                            if let _image = image {
+                                var resized = _image
+                                let size = _image.size
+                                
+                                // Resize image if too big or the viewer will choke
+                                // Get max metal supported size to prevent
+                                // 'Texture Descriptor Validation MTLTextureDescriptor has width (XXXX) greater than the maximum allowed size of 16384.' errors
+                                let targetSize = CGSize(width: PanoramaView.metalSize, height: PanoramaView.metalSize)
+                                
+                                if size.width > targetSize.width || size.height > targetSize.height {
+                                    
+                                    let widthRatio  = targetSize.width / size.width
+                                    let heightRatio = targetSize.height / size.height
+
+                                    // Figure out what our orientation is, and use that to form the rectangle
+                                    var newSize: CGSize
+                                    if(widthRatio > heightRatio) {
+                                       newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+                                    } else {
+                                       newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
+                                    }
+                                    
+                                    
+                                    // This is the rect that we've calculated out and this is what is actually used below
+                                    let rect = CGRect(origin: .zero, size: newSize)
+
+                                    // Actually do the resizing to the rect using the ImageContext stuff
+                                    UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+                                    
+                                    _image.draw(in: rect)
+                                    
+                                    resized = UIGraphicsGetImageFromCurrentImageContext() ?? resized
+                                    
+                                    UIGraphicsEndImageContext()
+                                }
+                                
+                                self.panoramaView?.image = resized
                                 self.onImageLoaded?(nil)
                             }
                             else{
